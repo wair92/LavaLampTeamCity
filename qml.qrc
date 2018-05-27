@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/particle.png</file>
+        <file>images/tub.png</file>
+        <file>images/tub_bar.png</file>
+        <file>LavaLamp.qml</file>
+    </qresource>
+</RCC>
