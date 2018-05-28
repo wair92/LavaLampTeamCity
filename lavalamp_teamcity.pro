@@ -1,4 +1,4 @@
-QT += quick
+QT += quick network
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -35,3 +35,6 @@ HEADERS += \
     app/buildinfoprovider.h \
     app/buildsinfomodel.h \
     app/lavalampapplication.h
+
+DISTFILES += \
+    sample_config.json

@@ -17,8 +17,8 @@ public:
     int run();
 
 private:
-    QGuiApplication       app_;
-    QQmlApplicationEngine engine_;
+    QGuiApplication         app_;
+    QQmlApplicationEngine   engine_;
 };
 
 #endif // LAVALAMPAPPLICATION_H

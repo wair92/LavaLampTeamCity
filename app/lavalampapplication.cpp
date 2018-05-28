@@ -3,11 +3,13 @@
   Author: pavel.hromada@gmail.com
 */
 
+#include <QNetworkProxyFactory>
 #include "lavalampapplication.h"
 
 LavaLampApplication::LavaLampApplication( int& argc, char** argv )
     : app_( argc, argv )
 {
+    QNetworkProxyFactory::setUseSystemConfiguration( true );
     // TODO load config
 }
 

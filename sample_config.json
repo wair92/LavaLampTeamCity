@@ -1,0 +1,14 @@
+{
+    "teamCityBaseUrl": "http://sbbuildserver/",
+    "builds": [{
+            "buildName": "AppCore Win32",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildWin32"
+        }, {
+            "buildName": "AppCore Linux x86",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildWin32"
+        }, {
+            "buildName": "AppCore Linux arm",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildWin32"
+        }
+    ]
+}

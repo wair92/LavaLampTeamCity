@@ -5,7 +5,6 @@
 
 #include "buildsinfomodel.h"
 
-BuildsInfoModel::BuildsInfoModel( QObject* parent )
-    : QAbstractListModel( parent )
+BuildsInfoModel::BuildsInfoModel()
 {
 }
