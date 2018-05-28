@@ -45,16 +45,16 @@ Item {
         Emitter {
             id: emitter
             property real yAccel: root.style === "normal" ? -8
-                                                          : root.style === "running" ? -35
-                                                                                     : -100
+                                                          : root.style === "running" ? -20
+                                                                                     : -80
 
             width: parent.width
             height: 150
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 3
             emitRate: root.style === "normal" ? 1
-                                              : root.style === "running" ? 8
-                                                                         : 25
+                                              : root.style === "running" ? 4
+                                                                         : 15
             lifeSpan: 15000
             acceleration: PointDirection{ y: emitter.yAccel; xVariation: 2; yVariation: 2 }
             size: 36
