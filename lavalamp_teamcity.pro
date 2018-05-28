@@ -16,7 +16,8 @@ SOURCES += \
         app/main.cpp \
     app/buildinfoprovider.cpp \
     app/buildsinfomodel.cpp \
-    app/lavalampapplication.cpp
+    app/lavalampapplication.cpp \
+    app/buildprovidersloader.cpp
 
 RESOURCES += app/qml.qrc
 
@@ -34,7 +35,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     app/buildinfoprovider.h \
     app/buildsinfomodel.h \
-    app/lavalampapplication.h
+    app/lavalampapplication.h \
+    app/buildprovidersloader.h
 
 DISTFILES += \
     sample_config.json

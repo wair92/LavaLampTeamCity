@@ -18,14 +18,24 @@ BuildInfoProvider::BuildInfoProvider( const QUrl& teamCityBaseUrl,
                                       const QJsonObject& config )
     : nam_( nam )
 {
-    name_ = config[ QStringLiteral("buildName") ].toString();
+    name_ = config[ "buildName" ].toString();
     url_ = teamCityBaseUrl.url()
         + QStringLiteral("/guestAuth/app/rest/builds?locator=buildType(id:%1),count:1,running:any" )
-              .arg( config[QStringLiteral( "buildTypeId" )].toString() );
+              .arg( config[ "buildTypeId" ].toString() );
 
     qDebug( "URL for %s: %s", qPrintable( name_ ), qPrintable( url_.url() ));
 
     requestStatus();
+}
+
+BuildStatus BuildInfoProvider::status() const
+{
+    return status_;
+}
+
+QString BuildInfoProvider::name() const
+{
+    return name_;
 }
 
 void BuildInfoProvider::requestStatus()
@@ -51,9 +61,9 @@ void BuildInfoProvider::processResponse()
     auto json = QJsonDocument::fromJson( response_->readAll() ).object();
     auto buildInfo = json["build"].toArray().at( 0 ).toObject();
 
-    if (buildInfo[QStringLiteral("state")].toString() == "running")
+    if (buildInfo[ "state" ].toString() == "running")
         newStatus = BuildStatus::Running;
-    else if (buildInfo[QStringLiteral("status")].toString() == "SUCCESS")
+    else if (buildInfo[ "status" ].toString() == "SUCCESS")
         newStatus = BuildStatus::Success;
     else
         newStatus = BuildStatus::Failed;

@@ -5,5 +5,6 @@
         <file>images/tub.png</file>
         <file>images/tub_bar.png</file>
         <file>qml/LavaLamp.qml</file>
+        <file>qml/LavaLampDashBoard.qml</file>
     </qresource>
 </RCC>

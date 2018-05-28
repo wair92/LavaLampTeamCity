@@ -45,4 +45,6 @@ private:
     QNetworkReply*                          response_ = nullptr;
 };
 
+using BuildInfoProviderContainer = std::vector<std::unique_ptr<BuildInfoProvider>>;
+
 #endif // BUILDINFOPROVIDER_H
