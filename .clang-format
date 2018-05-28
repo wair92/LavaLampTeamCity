@@ -1,0 +1,52 @@
+# Webkit style is loosely based on the Qt style
+BasedOnStyle: WebKit
+
+AlignConsecutiveDeclarations: true
+Standard: Cpp11
+ColumnLimit: 100
+
+Cpp11BracedListStyle: false
+FixNamespaceComments: true
+
+# Disable reflow of qdoc comments: indentation rules are different.
+# Translation comments are also excluded
+CommentPragmas: "^!|^:"
+
+# We want a space between the type and the star for pointer types
+PointerBindsToType: true
+
+# We want to break before the operators, but not before a '='
+BreakBeforeBinaryOperators: NonAssignment
+
+# Braces are usually attached, but not after functions or classes declaration
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterClass: true
+    AfterControlStatement: false
+    AfterEnum: false
+    AfterFunction: true
+    AfterNamespace: false
+    AfterObjCDeclaration: false
+    AfterStruct: true
+    AfterUnion: false
+    BeforeCatch: false
+    BeforeElse: false
+    IndentBraces: false
+
+SpaceInEmptyParentheses: false
+SpacesInParentheses: true
+
+# The coding style does not specify the following, but this is what gives
+# results closest to the existing code.
+AlignAfterOpenBracket: true
+AlwaysBreakTemplateDeclarations: true
+
+# Ideally we should also allow less short function in a single line, but
+# clang-format does not handle that
+AllowShortFunctionsOnASingleLine: Inline
+
+# The coding style specifies some include order categories, but also tells to
+# separate categories with an empty line. It does not specify the order within
+# the categories. Since the SortInclude feature of clang-format does not
+# re-order includes separated by empty lines, the feature is not used.
+SortIncludes: false

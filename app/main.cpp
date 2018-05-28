@@ -1,16 +1,15 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
+/*
+  This is free and unencumbered software released into the public domain.
+  Author: pavel.hromada@gmail.com
+*/
 
-int main(int argc, char *argv[])
+#include <QCoreApplication>
+#include "lavalampapplication.h"
+
+int main( int argc, char* argv[] )
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute( Qt::AA_EnableHighDpiScaling );
 
-    QGuiApplication app(argc, argv);
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    if (engine.rootObjects().isEmpty())
-        return -1;
-
-    return app.exec();
+    LavaLampApplication app( argc, argv );
+    return app.run();
 }

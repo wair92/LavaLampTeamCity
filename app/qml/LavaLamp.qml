@@ -7,6 +7,7 @@
     However this implementation contains lot of changes/deletions/enhancements compared to
     the original.
 */
+
 import QtQuick 2.8
 import QtQuick.Particles 2.0
 
@@ -17,12 +18,12 @@ Item {
     property string style: "normal" // "running", "error"
     property bool bubbling: false
 
-    width: batteryImage.width
-    height: batteryImage.height
+    width: tubImage.width
+    height: tubImage.height
 
     Image {
         id: tubBar
-        source: "images/tub_bar.png"
+        source: "../images/tub_bar.png"
         visible: false
     }
 
@@ -33,7 +34,7 @@ Item {
         ImageParticle {
             id: bubble
             anchors.fill: parent
-            source: "images/particle.png"
+            source: "../images/particle.png"
             opacity: 0.25
         }
 
@@ -97,9 +98,9 @@ Item {
             }"
     }
 
-    Image {
-        id: batteryImage
-        source: "images/tub.png"
+     Image {
+        id: tubImage
+        source: "../images/tub.png"
     }
 
     Text {
