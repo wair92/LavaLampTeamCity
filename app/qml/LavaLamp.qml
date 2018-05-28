@@ -15,7 +15,7 @@ Item {
     id: root
 
     property string text: ""
-    property string state: "success" // "running", "failed"
+    property string status: "success" // "running", "failed"
     property bool bubbling: false
 
     width: tubImage.width
@@ -34,8 +34,8 @@ Item {
         ImageParticle {
             id: bubble
             anchors.fill: parent
-            source: "../images/particle.png"
-            opacity: 0.25
+            source: "../images/bubble.png"
+            opacity: 0.6
         }
 
         Wander {
@@ -45,17 +45,17 @@ Item {
 
         Emitter {
             id: emitter
-            property real yAccel: root.state === "success" ? -8
-                                                           : root.state === "running" ? -20
-                                                                                      : -80
+            property real yAccel: root.status === "success" ? -8
+                                                            : root.status === "running" ? -20
+                                                                                        : -80
 
             width: parent.width
             height: 150
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 3
-            emitRate: root.state === "success" ? 1
-                                               : root.state === "running" ? 4
-                                                                          : 15
+            emitRate: root.status === "success" ? 1
+                                                : root.status === "running" ? 4
+                                                                            : 15
             lifeSpan: 15000
             acceleration: PointDirection{ y: emitter.yAccel; xVariation: 2; yVariation: 2 }
             size: 36
@@ -77,8 +77,8 @@ Item {
 
         property variant source: tubBar
         property variant source2: particlesShaderSource
-        property real red: root.state === "success" ? 0.0 : 1.0
-        property real green: root.state === "failed" ? 0.0 : 1.0
+        property real red: root.status === "success" ? 0.0 : 1.0
+        property real green: root.status === "failed" ? 0.0 : 1.0
 
         fragmentShader: "
             uniform sampler2D source;
@@ -98,7 +98,7 @@ Item {
             }"
     }
 
-     Image {
+    Image {
         id: tubImage
         source: "../images/tub.png"
     }
@@ -114,7 +114,7 @@ Item {
         rotation: -root.rotation
         text: root.text
         SequentialAnimation on opacity {
-            running: root.state === "failed"
+            running: root.status === "failed"
             loops: Animation.Infinite
             alwaysRunToEnd: true
             NumberAnimation { to: 0.5; duration: 200; easing.type: Easing.InOutQuad }

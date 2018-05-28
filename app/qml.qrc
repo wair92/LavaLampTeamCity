@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>images/particle.png</file>
         <file>images/tub.png</file>
         <file>images/tub_bar.png</file>
         <file>qml/LavaLamp.qml</file>
         <file>qml/LavaLampDashBoard.qml</file>
+        <file>images/bubble.png</file>
     </qresource>
 </RCC>

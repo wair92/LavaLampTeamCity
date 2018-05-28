@@ -31,5 +31,7 @@ int LavaLampApplication::run()
     if (buildInfoProviders.empty())
         engine_.rootObjects().at( 0 )->setProperty( "configurationError", true );
 
+    buildsModel_.setBuildsProviders( std::move( buildInfoProviders ));
+
     return app_.exec();
 }

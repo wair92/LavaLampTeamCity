@@ -15,38 +15,43 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
-    property string configurationError: false
+    property bool configurationError: false
 
-    LavaLamp {
-        id: lamp
-        anchors.centerIn: parent
-        bubbling: true
-    }
+//    LavaLamp {
+//        id: lamp
+//        anchors.centerIn: parent
+//        bubbling: true
+//    }
 
-    ButtonGroup {
-        buttons: column.children
-    }
+//    ButtonGroup {
+//        buttons: column.children
+//    }
 
-    Column {
-        id: column
+//    Column {
+//        id: column
 
-        spacing: 16
+//        spacing: 16
 
-        RadioButton {
-            checked: true
-            text: "normal"
-            onCheckedChanged: if (checked) lamp.state = "normal"
-        }
+//        RadioButton {
+//            checked: true
+//            text: "success"
+//            onCheckedChanged: if (checked) lamp.state = "success"
+//        }
 
-        RadioButton {
-            text: "running"
-            onCheckedChanged: if (checked) lamp.state = "running"
-        }
+//        RadioButton {
+//            text: "running"
+//            onCheckedChanged: if (checked) lamp.state = "running"
+//        }
 
-        RadioButton {
-            text: "error"
-            onCheckedChanged: if (checked) lamp.state = "error"
-        }
+//        RadioButton {
+//            text: "failed"
+//            onCheckedChanged: if (checked) lamp.state = "failed"
+//        }
+//    }
+
+    LavaLampDashBoard {
+        anchors.fill: parent
+        model: buildsModel
     }
 
     Rectangle {
@@ -54,14 +59,19 @@ Window {
         visible: root.configurationError
 
         Text {
-            font.pixelSize: 32
+            anchors {
+                fill: parent
+                margins: 80
+            }
+            font.pixelSize: 42
             style: Text.Outline
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             color: "red"
             styleColor: "black"
-            text: "Configuration error: either provide absolute path to config.json file\n" +
-                  "as application argument or save config.json file next" +
+            wrapMode: Text.WordWrap
+            text: "Configuration error: either provide absolute path to config.json file " +
+                  "as application argument or save config.json file next " +
                   "to application executable."
         }
     }

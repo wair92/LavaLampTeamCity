@@ -7,11 +7,12 @@ import QtQuick 2.8
 
 GridView {
     id: grid
-    anchors.fill: parent
-    cellWidth: 200;
-    cellHeight: 200
 
-    model: buildsModel
+    cellWidth: 400;
+    cellHeight: 400
+
+    onCountChanged: console.log(count)
+
     delegate: Item {
         width: grid.cellWidth
         height: grid.cellHeight
@@ -20,6 +21,12 @@ GridView {
             id: lamp
             anchors.fill: parent
             bubbling: true
+            status: Status
+        }
+
+        Text {
+            id: name
+            text: Name
         }
     }
 }

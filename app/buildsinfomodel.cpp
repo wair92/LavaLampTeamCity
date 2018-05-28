@@ -7,8 +7,7 @@
 
 #include "buildsinfomodel.h"
 
-BuildsInfoModel::BuildsInfoModel()
-{}
+BuildsInfoModel::BuildsInfoModel() = default;
 
 void BuildsInfoModel::setBuildsProviders( BuildInfoProviderContainer&& providers )
 {
@@ -48,11 +47,9 @@ QHash<int, QByteArray> BuildsInfoModel::roleNames() const
 
 void BuildsInfoModel::connectBuildInfoProviders()
 {
-    using std::placeholders::_1;
-
     for (quint32 i = 0; i < buildInfoProviders_.size(); ++i)
         connect( buildInfoProviders_[ i ].get(), &BuildInfoProvider::statusChanged,
-                 std::bind( &BuildsInfoModel::onBuildInfoChanged, this, _1 ));
+                 std::bind( &BuildsInfoModel::onBuildInfoChanged, this, i ));
 }
 
 QString BuildsInfoModel::buildStatusToString(BuildStatus status) const
