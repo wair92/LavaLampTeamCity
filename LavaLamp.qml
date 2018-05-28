@@ -7,7 +7,7 @@
     However this implementation contains lot of changes/deletions/enhancements compared to
     the original.
 */
-import QtQuick 2.9
+import QtQuick 2.8
 import QtQuick.Particles 2.0
 
 Item {
@@ -29,34 +29,36 @@ Item {
     ParticleSystem {
         id: particlesItem
         anchors.fill: tubBar
-        running: root.bubbling
 
         ImageParticle {
+            id: bubble
+            anchors.fill: parent
             source: "images/particle.png"
-            rotationVariation: 180
-            color:"#ffffff"
-            colorVariation: 0.2
+            opacity: 0.25
+        }
+
+        Wander {
+            xVariance: 25;
+            pace: 25;
         }
 
         Emitter {
-            width: 8
-            height: parent.height
-            x: 20
-            emitRate: root.style === "normal" ? 1
-                                              : root.style === "running" ? 10
-                                                                         : 50
-            lifeSpan: 3500
-            size: 32
-            sizeVariation: 24
-            velocity: PointDirection{ x: 5 + 100; xVariation: x * 0.5; yVariation: 6 }
-            endSize: 8
+            id: emitter
+            property real yAccel: root.style === "normal" ? -8
+                                                          : root.style === "running" ? -35
+                                                                                     : -100
 
-        }
-
-        Turbulence {
             width: parent.width
-            height: parent.height
-            strength: 32
+            height: 150
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 3
+            emitRate: root.style === "normal" ? 1
+                                              : root.style === "running" ? 8
+                                                                         : 25
+            lifeSpan: 15000
+            acceleration: PointDirection{ y: emitter.yAccel; xVariation: 2; yVariation: 2 }
+            size: 36
+            sizeVariation: 24
         }
     }
 
