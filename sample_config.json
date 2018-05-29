@@ -24,6 +24,9 @@
         }, {
             "buildName": "RemoteObjects  Win32",
             "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_RemoteobjectsLib_Bui_2"
+        }, {
+            "buildName": "RemoteObjects  Win32",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_RemoteobjectsLib_Bui_2"
         }
     ]
 }
