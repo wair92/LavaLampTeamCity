@@ -20,7 +20,7 @@ BuildInfoProvider::BuildInfoProvider( const QUrl& teamCityBaseUrl,
 {
     name_ = config[ "buildName" ].toString();
     url_ = teamCityBaseUrl.url()
-        + QStringLiteral("/guestAuth/app/rest/builds?locator=buildType(id:%1),count:1,running:any" )
+        + QStringLiteral("guestAuth/app/rest/builds?locator=buildType(id:%1),count:1,running:any" )
               .arg( config[ "buildTypeId" ].toString() );
 
     qDebug( "URL for %s: %s", qPrintable( name_ ), qPrintable( url_.url() ));
@@ -44,7 +44,7 @@ void BuildInfoProvider::requestStatus()
     request.setUrl( url_ );
     request.setRawHeader( "Accept", "application/json" );
 
-    auto response_ = nam_->get( request );
+    response_ = nam_->get( request );
 
     connect( response_, &QNetworkReply::finished, this, &BuildInfoProvider::processResponse );
 }
@@ -53,6 +53,7 @@ void BuildInfoProvider::processResponse()
 {
     if (!response_ || response_->error() != QNetworkReply::NoError) {
         qWarning( "Error during %s status update", qPrintable( name_ ));
+        qWarning( "Error message: %s", qPrintable( response_->errorString() ));
         QTimer::singleShot( 30000, this, &BuildInfoProvider::requestStatus );
         return;
     }

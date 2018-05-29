@@ -14,6 +14,7 @@ Window {
     width: 640
     height: 480
     title: qsTr("Hello World")
+    color: "black"
 
     property bool configurationError: false
 

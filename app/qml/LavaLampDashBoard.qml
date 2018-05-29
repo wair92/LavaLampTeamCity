@@ -11,8 +11,6 @@ GridView {
     cellWidth: 400;
     cellHeight: 400
 
-    onCountChanged: console.log(count)
-
     delegate: Item {
         width: grid.cellWidth
         height: grid.cellHeight

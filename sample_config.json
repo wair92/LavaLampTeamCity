@@ -1,14 +1,29 @@
 {
     "teamCityBaseUrl": "http://sbbuildserver/",
     "builds": [{
+            "buildName": "Qt frontend suite documentation",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_Documentation"
+        }, {
             "buildName": "AppCore Win32",
             "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildWin32"
         }, {
             "buildName": "AppCore Linux x86",
-            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildWin32"
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildLinuxX86"
         }, {
             "buildName": "AppCore Linux arm",
-            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildWin32"
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_AppcoreLib_BuildLinuxArm"
+        }, {
+            "buildName": "RemoteObjects Android",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_RemoteobjectsLib_BuildAndroid"
+        }, {
+            "buildName": "RemoteObjects Linux arm",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_RemoteobjectsLib_Build"
+        }, {
+            "buildName": "RemoteObjects  Linux x86",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_RemoteobjectsLib_Bui"
+        }, {
+            "buildName": "RemoteObjects  Win32",
+            "buildTypeId": "FcsGrundsatz_FcsDevicesQtFrontendSuite_Trunk_RemoteobjectsLib_Bui_2"
         }
     ]
 }

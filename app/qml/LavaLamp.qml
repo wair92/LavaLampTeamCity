@@ -35,7 +35,7 @@ Item {
             id: bubble
             anchors.fill: parent
             source: "../images/bubble.png"
-            opacity: 0.6
+            opacity: 0.4
         }
 
         Wander {
@@ -53,12 +53,12 @@ Item {
             height: 150
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 3
-            emitRate: root.status === "success" ? 1
+            emitRate: root.status === "success" ? 0.25
                                                 : root.status === "running" ? 4
                                                                             : 15
             lifeSpan: 15000
-            acceleration: PointDirection{ y: emitter.yAccel; xVariation: 2; yVariation: 2 }
-            size: 36
+            acceleration: PointDirection{ y: emitter.yAccel; xVariation: 6; yVariation: 2 }
+            size: 32
             sizeVariation: 24
         }
     }
