@@ -6,5 +6,7 @@
         <file>qml/LavaLamp.qml</file>
         <file>qml/LavaLampDashBoard.qml</file>
         <file>images/bubble.png</file>
+        <file>images/tub3.png</file>
+        <file>images/tub_bar2.png</file>
     </qresource>
 </RCC>

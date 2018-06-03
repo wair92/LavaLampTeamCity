@@ -18,13 +18,17 @@ Item {
     property string status: "success" // "running", "failed"
     property bool bubbling: false
 
-    width: tubImage.width
-    height: tubImage.height
-
     Image {
         id: tubBar
-        source: "../images/tub_bar.png"
+        anchors {
+            centerIn: tubImage
+            horizontalCenterOffset: tubImage.paintedWidth * 0.02
+        }
+        source: "../images/tub_bar2.png"
         visible: false
+        width: tubImage.paintedWidth * 0.92
+        height: tubImage.paintedHeight * 0.9
+        fillMode: Image.PreserveAspectFit
     }
 
     ParticleSystem {
@@ -100,18 +104,23 @@ Item {
 
     Image {
         id: tubImage
-        source: "../images/tub.png"
+        anchors.fill: parent
+        source: "../images/tub3.png"
+        fillMode: Image.PreserveAspectFit
     }
 
     Text {
-        anchors.centerIn: parent
-        y: 22
-        font.pixelSize: 48
+        anchors {
+            centerIn: parent
+            verticalCenterOffset: -tubImage.paintedHeight * 0.05
+        }
+        font.pixelSize: tubImage.paintedWidth * 0.15
+        font.bold: true
+        width: tubImage.paintedWidth
         style: Text.Outline
         color: "#404040"
         styleColor: "#ffffff"
-        font.bold: true
-        rotation: -root.rotation
+        horizontalAlignment: Text.AlignHCenter
         text: root.text
         SequentialAnimation on opacity {
             running: root.status === "failed"
