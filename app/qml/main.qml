@@ -13,46 +13,16 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
-    color: "black"
+    title: qsTr("TeamCity Lava Lamp 1.0")
+    color: "#0e1111"
 
     property bool configurationError: false
-
-//    LavaLamp {
-//        id: lamp
-//        anchors.centerIn: parent
-//        bubbling: true
-//    }
-
-//    ButtonGroup {
-//        buttons: column.children
-//    }
-
-//    Column {
-//        id: column
-
-//        spacing: 16
-
-//        RadioButton {
-//            checked: true
-//            text: "success"
-//            onCheckedChanged: if (checked) lamp.state = "success"
-//        }
-
-//        RadioButton {
-//            text: "running"
-//            onCheckedChanged: if (checked) lamp.state = "running"
-//        }
-
-//        RadioButton {
-//            text: "failed"
-//            onCheckedChanged: if (checked) lamp.state = "failed"
-//        }
-//    }
+    property int buildInfoColumns: 2
 
     LavaLampDashBoard {
         anchors.fill: parent
         model: buildsModel
+        colums: root.buildInfoColumns
     }
 
     Rectangle {

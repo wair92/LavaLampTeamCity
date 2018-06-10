@@ -17,7 +17,7 @@ SOURCES += \
     app/buildinfoprovider.cpp \
     app/buildsinfomodel.cpp \
     app/lavalampapplication.cpp \
-    app/buildprovidersloader.cpp
+    app/configuration.cpp
 
 RESOURCES += app/qml.qrc
 
@@ -36,7 +36,7 @@ HEADERS += \
     app/buildinfoprovider.h \
     app/buildsinfomodel.h \
     app/lavalampapplication.h \
-    app/buildprovidersloader.h
+    app/configuration.h
 
 DISTFILES += \
     sample_config.json

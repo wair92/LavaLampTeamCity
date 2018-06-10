@@ -15,6 +15,7 @@ Item {
     id: root
 
     property string text: ""
+    property string labelText: ""
     property string status: "success" // "running", "failed"
     property bool bubbling: false
 
@@ -128,6 +129,31 @@ Item {
             alwaysRunToEnd: true
             NumberAnimation { to: 0.5; duration: 200; easing.type: Easing.InOutQuad }
             NumberAnimation { to: 1.0; duration: 200; easing.type: Easing.InOutQuad }
+        }
+    }
+
+    Item {
+        id: plaqueImage
+        //source: "../images/plaque.png"
+        width: tubImage.width * 0.6
+        height: tubImage.height * 0.2
+        anchors {
+            bottom: tubImage.bottom
+            horizontalCenter: tubImage.horizontalCenter
+            bottomMargin: 10
+        }
+
+        Text {
+            anchors {
+                fill: parent
+                margins: 10
+            }
+            wrapMode: Text.WordWrap
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: root.labelText
+            color: "red"
+            font.bold: true
         }
     }
 }

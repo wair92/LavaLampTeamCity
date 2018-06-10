@@ -8,5 +8,6 @@
         <file>images/bubble.png</file>
         <file>images/tub3.png</file>
         <file>images/tub_bar2.png</file>
+        <file>images/plaque.png</file>
     </qresource>
 </RCC>

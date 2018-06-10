@@ -10,6 +10,7 @@
 #include <QQmlApplicationEngine>
 
 #include "buildsinfomodel.h"
+#include "buildinfoprovider.h"
 
 class LavaLampApplication
 {
@@ -20,6 +21,9 @@ public:
     int run();
 
 private:
+    BuildInfoProviderContainer loadBuildInfoProviders( const QJsonArray& builds,
+                                                       const QUrl& serverUrl ) const;
+
     QGuiApplication         app_;
     QQmlApplicationEngine   engine_;
     BuildsInfoModel         buildsModel_;
