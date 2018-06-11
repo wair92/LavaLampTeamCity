@@ -138,9 +138,8 @@ Item {
         width: tubImage.width * 0.6
         height: tubImage.height * 0.2
         anchors {
-            bottom: tubImage.bottom
-            horizontalCenter: tubImage.horizontalCenter
-            bottomMargin: 10
+            centerIn: parent
+            verticalCenterOffset: tubImage.paintedHeight * 0.375
         }
 
         Text {
@@ -154,6 +153,9 @@ Item {
             text: root.labelText
             color: "red"
             font.bold: true
+            font.pixelSize: 16
+            fontSizeMode: Text.Fit
+            minimumPixelSize: 8
         }
     }
 }
