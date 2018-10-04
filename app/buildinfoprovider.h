@@ -41,6 +41,9 @@ private:
     void requestLastCommitee();
     void processStatusResponse();
     void processLastCommiteeResponse();
+    bool isLastCommiteeGitFormatted() const;
+    QString formatGitCommitee() const;
+    QString formatSvnCommitee() const;
 
     BuildStatus                             status_ = BuildStatus::Running;
     QString                                 lastCommitee_ {""};

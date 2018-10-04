@@ -50,25 +50,17 @@ QString BuildInfoProvider::lastCommitee() const
     return lastCommitee_;
 }
 
+bool isLastCommiteeGitFormatted() const{
+    return lastCommitee_.indexOf("<") == -1 ? false : true;
+}
+
 QString BuildInfoProvider::formatedLastCommitee() const
 {
-    QString name {""};
-    QString surname {""};
-    auto signIndex = lastCommitee_.indexOf("<");
-    if( signIndex == -1 ){
-        int dotIntex = lastCommitee_.indexOf(".");
-        int atIndex = lastCommitee_.indexOf("@");
-        if(dotIntex < 0 || atIndex < 0)
-            return lastCommitee_;
-        surname = lastCommitee_.mid( 0, dotIntex );
-        name = lastCommitee_.mid( dotIntex + 1, atIndex - dotIntex -1 );
-        return name + " " + surname;
+    if( !isLastCommiteeGitFormatted() ){
+        return formatSvnCommitee();
     }
     else{
-        int spaceIndex = lastCommitee_.indexOf(" ");
-        surname = lastCommitee_.mid( 0, spaceIndex );
-        name = lastCommitee_.mid( spaceIndex + 1, signIndex - spaceIndex -1 );
-        return name + " " + surname;
+        return formatGitCommitee();
     }
 }
 
@@ -146,4 +138,30 @@ void BuildInfoProvider::processLastCommiteeResponse()
     responseLastCommitee_ = nullptr;
 
     QTimer::singleShot( 30000, this, &BuildInfoProvider::requestLastCommitee );
+}
+
+QString BuildInfoProvider::formatGitCommitee() const
+{
+    QString name {""};
+    QString surname {""};
+
+    auto signIndex = lastCommitee_.indexOf("<");
+    int spaceIndex = lastCommitee_.indexOf(" ");
+    surname = lastCommitee_.mid( 0, spaceIndex );
+    name = lastCommitee_.mid( spaceIndex + 1, signIndex - spaceIndex -1 );
+    return name + " " + surname;
+}
+
+QString BuildInfoProvider::formatSvnCommitee() const
+{
+    QString name {""};
+    QString surname {""};
+
+    int dotIntex = lastCommitee_.indexOf(".");
+    int atIndex = lastCommitee_.indexOf("@");
+    if(dotIntex < 0 || atIndex < 0)
+        return lastCommitee_;
+    surname = lastCommitee_.mid( 0, dotIntex );
+    name = lastCommitee_.mid( dotIntex + 1, atIndex - dotIntex -1 );
+    return name + " " + surname;
 }
