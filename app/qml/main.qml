@@ -3,23 +3,29 @@
   Author: pavel.hromada@gmail.com
 */
 
-import QtQuick 2.8
-import QtQuick.Window 2.2
+import QtQuick 2.5
+import QtQuick.Window 2.3
 import QtQuick.Controls 2.1
 
 Window {
     id: root
 
     visible: true
-    width: 640
-    height: 480
+    width: 1920
+    height: 300
     title: qsTr("TeamCity Lava Lamp 1.0")
-    color: "#0e1111"
+    color: "black"
+    flags: Qt.SplashScreen | Qt.WindowStaysOnTopHint
+    screen: Qt.application.screens[1]
+
+    x: screen.virtualX
+    y: screen.virtualY + Screen.height - height
 
     property bool configurationError: false
     property int buildInfoColumns: 2
 
     LavaLampDashBoard {
+        anchors.topMargin: 100
         anchors.fill: parent
         model: buildsModel
         colums: root.buildInfoColumns
@@ -34,7 +40,7 @@ Window {
                 fill: parent
                 margins: 80
             }
-            font.pixelSize: 42
+            font.pixelSize: 46
             style: Text.Outline
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

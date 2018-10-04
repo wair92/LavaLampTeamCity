@@ -19,13 +19,20 @@ BuildInfoProvider::BuildInfoProvider( const QUrl& teamCityBaseUrl,
     : nam_( nam )
 {
     name_ = config[ "buildName" ].toString();
-    url_ = teamCityBaseUrl.url()
+    buildStatusUrl_ = teamCityBaseUrl.url()
         + QStringLiteral("guestAuth/app/rest/builds?locator=buildType(id:%1),count:1,running:any" )
               .arg( config[ "buildTypeId" ].toString() );
 
-    qDebug( "URL for %s: %s", qPrintable( name_ ), qPrintable( url_.url() ));
+    qDebug( "URL for %s: %s", qPrintable( name_ ), qPrintable( buildStatusUrl_.url() ));
+
+    lastCommiteeUrl_ = teamCityBaseUrl.url()
+        + QStringLiteral("guestAuth/app/rest/changes?locator=buildType(id:%1),count:1" )
+            .arg( config[ "buildTypeId" ].toString() );
+
+    qDebug( "URL for %s: %s", qPrintable( name_ ), qPrintable( lastCommiteeUrl_.url() ));
 
     requestStatus();
+    requestLastCommitee();
 }
 
 BuildStatus BuildInfoProvider::status() const
@@ -38,28 +45,66 @@ QString BuildInfoProvider::name() const
     return name_;
 }
 
+QString BuildInfoProvider::lastCommitee() const
+{
+    return lastCommitee_;
+}
+
+QString BuildInfoProvider::formatedLastCommitee() const
+{
+    QString name {""};
+    QString surname {""};
+    auto signIndex = lastCommitee_.indexOf("<");
+    if( signIndex == -1 ){
+        int dotIntex = lastCommitee_.indexOf(".");
+        int atIndex = lastCommitee_.indexOf("@");
+        if(dotIntex < 0 || atIndex < 0)
+            return lastCommitee_;
+        surname = lastCommitee_.mid( 0, dotIntex );
+        name = lastCommitee_.mid( dotIntex + 1, atIndex - dotIntex -1 );
+        return name + " " + surname;
+    }
+    else{
+        int spaceIndex = lastCommitee_.indexOf(" ");
+        surname = lastCommitee_.mid( 0, spaceIndex );
+        name = lastCommitee_.mid( spaceIndex + 1, signIndex - spaceIndex -1 );
+        return name + " " + surname;
+    }
+}
+
 void BuildInfoProvider::requestStatus()
 {
     QNetworkRequest request;
-    request.setUrl( url_ );
+    request.setUrl( buildStatusUrl_ );
     request.setRawHeader( "Accept", "application/json" );
 
-    response_ = nam_->get( request );
+    responseStatus_ = nam_->get( request );
+    connect( responseStatus_, &QNetworkReply::finished, this, &BuildInfoProvider::processStatusResponse );
 
-    connect( response_, &QNetworkReply::finished, this, &BuildInfoProvider::processResponse );
+
 }
 
-void BuildInfoProvider::processResponse()
+void BuildInfoProvider::requestLastCommitee()
 {
-    if (!response_ || response_->error() != QNetworkReply::NoError) {
+    QNetworkRequest request;
+    request.setUrl( lastCommiteeUrl_ );
+    request.setRawHeader( "Accept", "application/json" );
+
+    responseLastCommitee_ = nam_->get( request );
+    connect( responseLastCommitee_, &QNetworkReply::finished, this, &BuildInfoProvider::processLastCommiteeResponse );
+}
+
+void BuildInfoProvider::processStatusResponse()
+{
+    if (!responseStatus_ || responseStatus_->error() != QNetworkReply::NoError) {
         qWarning( "Error during %s status update", qPrintable( name_ ));
-        qWarning( "Error message: %s", qPrintable( response_->errorString() ));
+        qWarning( "Error message: %s", qPrintable( responseStatus_->errorString() ));
         QTimer::singleShot( 30000, this, &BuildInfoProvider::requestStatus );
         return;
     }
 
     BuildStatus newStatus = BuildStatus::Failed;
-    auto json = QJsonDocument::fromJson( response_->readAll() ).object();
+    auto json = QJsonDocument::fromJson( responseStatus_->readAll() ).object();
     auto buildInfo = json["build"].toArray().at( 0 ).toObject();
 
     if (buildInfo[ "state" ].toString() == "running")
@@ -74,8 +119,31 @@ void BuildInfoProvider::processResponse()
         emit statusChanged();
     }
 
-    response_->deleteLater();
-    response_ = nullptr;
+    responseStatus_->deleteLater();
+    responseStatus_ = nullptr;
 
     QTimer::singleShot( 30000, this, &BuildInfoProvider::requestStatus );
+}
+
+void BuildInfoProvider::processLastCommiteeResponse()
+{
+    if (!responseLastCommitee_ || responseLastCommitee_->error() != QNetworkReply::NoError) {
+        qWarning( "Error during %s Last commitee update", qPrintable( name_ ));
+        qWarning( "Error message: %s", qPrintable( responseStatus_->errorString() ));
+        return;
+    }
+
+    auto json = QJsonDocument::fromJson( responseLastCommitee_->readAll() ).object();
+    auto buildInfo = json["change"].toArray().at( 0 ).toObject();
+    QString newUserName = buildInfo[ "username" ].toString();
+
+    if (newUserName != lastCommitee_) {
+        lastCommitee_ = newUserName;
+        emit lastCommiteeChanged();
+    }
+
+    responseLastCommitee_->deleteLater();
+    responseLastCommitee_ = nullptr;
+
+    QTimer::singleShot( 30000, this, &BuildInfoProvider::requestLastCommitee );
 }

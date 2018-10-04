@@ -30,19 +30,26 @@ public:
 
     BuildStatus status() const;
     QString name() const;
-
+    QString lastCommitee() const;
+    QString formatedLastCommitee() const;
 signals:
     void statusChanged();
+    void lastCommiteeChanged();
 
 private:
     void requestStatus();
-    void processResponse();
+    void requestLastCommitee();
+    void processStatusResponse();
+    void processLastCommiteeResponse();
 
     BuildStatus                             status_ = BuildStatus::Running;
+    QString                                 lastCommitee_ {""};
     QString                                 name_;
     std::shared_ptr<QNetworkAccessManager>  nam_;
-    QUrl                                    url_;
-    QNetworkReply*                          response_ = nullptr;
+    QUrl                                    buildStatusUrl_;
+    QUrl                                    lastCommiteeUrl_;
+    QNetworkReply*                          responseStatus_ = nullptr;
+    QNetworkReply*                          responseLastCommitee_ = nullptr;
 };
 
 using BuildInfoProviderContainer = std::vector<std::unique_ptr<BuildInfoProvider>>;

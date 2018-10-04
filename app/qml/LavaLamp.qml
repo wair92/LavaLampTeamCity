@@ -117,6 +117,7 @@ Item {
         }
         font.pixelSize: tubImage.paintedWidth * 0.15
         font.bold: true
+        fontSizeMode: Text.Fit
         width: tubImage.paintedWidth
         style: Text.Outline
         color: "#404040"
@@ -153,9 +154,9 @@ Item {
             text: root.labelText
             color: "red"
             font.bold: true
-            font.pixelSize: 16
+            font.pixelSize: 12
             fontSizeMode: Text.Fit
-            minimumPixelSize: 8
+            minimumPixelSize: 4
         }
     }
 }
